@@ -1,0 +1,19 @@
+.cardboard_container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  padding: 30px;
+
+  span {
+    font-size: 16px;
+  }
+  .cc-blue {
+    color: #0e00ff;
+    margin-right: 10px;
+  }
+
+  .cc-black {
+    color: #14080e;
+  }
+}

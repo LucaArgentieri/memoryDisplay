@@ -1,0 +1,41 @@
+.cardboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 80%;
+}
+
+.cardboard h3 span {
+  color: #0e00ff;
+  cursor: pointer;
+}
+
+.cardboard h4 {
+  color: #0e00ff;
+  cursor: pointer;
+  margin-top: 50px;
+  font-size: 20px;
+}
+
+.cardboard .cards_grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.cardboard .puff {
+  display: none;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,108 @@
+@font-face {
+  font-family: "Nitti Normal";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../font/Nitti-Normal.woff");
+}
+
+@font-face {
+  font-family: "Nitti Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../font/Nitti-Bold.woff");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 120px;
+  height: 150px;
+  cursor: pointer;
+}
+
+.card .back,
+.card .front {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  background-color: #0e00ff;
+}
+
+.card .back:hover {
+  -webkit-transition: 0.3s ease-in-out all;
+  transition: 0.3s ease-in-out all;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.card .back img {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  height: 30px;
+  opacity: 0.6;
+}
+
+.card .front {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.card.flipped .inner {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: 1s cubic-bezier(0.17, 0.67, 1, 1.23) all;
+  transition: 1s cubic-bezier(0.17, 0.67, 1, 1.23) all;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+body {
+  font-family: "Nitti Normal";
+}
+
+.container {
+  height: 100vh;
+}
+/*# sourceMappingURL=style.css.map */

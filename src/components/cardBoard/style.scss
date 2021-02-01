@@ -1,0 +1,31 @@
+.cardboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 80%;
+
+  h3 {
+    span {
+      color: #0e00ff;
+      cursor: pointer;
+    }
+  }
+
+  h4 {
+    color: #0e00ff;
+    cursor: pointer;
+    margin-top: 50px;
+    font-size: 20px;
+  }
+
+  .cards_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .puff {
+    display: none;
+  }
+}

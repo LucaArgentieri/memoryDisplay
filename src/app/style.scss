@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Nitti Normal";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../font/Nitti-Normal.woff");
+}
+
+@font-face {
+  font-family: "Nitti Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../font/Nitti-Bold.woff");
+}
+
+@import "../styles/_reset.scss";
+
+body {
+  font-family: "Nitti Normal";
+}
+
+.container {
+  height: 100vh;
+}
