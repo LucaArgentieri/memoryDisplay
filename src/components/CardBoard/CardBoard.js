@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import './style.css'
+import './CardBoard.scss'
 import { images } from './data.js'
-import FrontCard from '../frontCard'
-
-
+import FrontCard from '../FrontCard/FrontCard'
+import '../../animations/animate'
+import { cardAnimation, letsPlayAnimation } from '../../animations/animate'
 
 export default function CardBoard() {
 
@@ -11,20 +11,15 @@ export default function CardBoard() {
     const [matchedCard, setMatchedCard] = useState([])
     const [hide, setHide] = useState(true)
 
-
-
     const pairCard = useMemo(() => [...images], []);
 
     useEffect(() => {
-
         const firstMatch = pairCard[cardStatus[0]]
         const secondMatch = pairCard[cardStatus[1]]
-
 
         if (secondMatch && firstMatch.id === secondMatch.id) {
             setMatchedCard([...matchedCard, firstMatch.id])
         }
-
 
         if (cardStatus.length === 2) {
             setTimeout(() => {
@@ -32,17 +27,10 @@ export default function CardBoard() {
             }, 1000)
         }
 
-
-
     }, [cardStatus, matchedCard, pairCard])
 
     const handleFlip = (index) => {
         setCardStatus((opened) => [...opened, index])
-
-    }
-
-    const spawnGrid = () => {
-        setHide(false)
     }
 
     function refreshPage() {
@@ -50,23 +38,37 @@ export default function CardBoard() {
     }
 
 
+    //Style
+
+    useEffect(() => {
+        letsPlayAnimation()
+    }, [])
+
+
+    const spawnGrid = () => {
+        setHide(false)
+        cardAnimation()
+
+    }
+
+
 
     return (
         <div className="cardboard">
-            <h3 className={`${hide === false ? 'puff' : ''}`}>Let's <span onClick={() => spawnGrid()}>play</span></h3>
+            <h3 className={` lp ${hide === false ? 'puff' : ''}`}>Let's <span className="play" onClick={() => spawnGrid()}>play</span></h3>
             <div className={`cards_grid ${hide === true ? 'puff' : ''}`}>
                 {
                     pairCard
                         .map((img, index) => {
 
-                            let flipCard = false
+                            let flipCard = true
 
                             if (cardStatus.includes(index)) {
-                                flipCard = true
+                                flipCard = false
                             }
 
                             if (matchedCard.includes(img.id)) {
-                                flipCard = true
+                                flipCard = false
                             }
 
                             return (
@@ -83,7 +85,7 @@ export default function CardBoard() {
                 }
             </div>
 
-            <h4 onClick={() => refreshPage()} className={` ${hide === true ? 'puff' : ''}`}>Reset</h4>
+            <h4 onClick={() => refreshPage()} className={`reset ${hide === true ? 'puff' : ''}`}>Reset</h4>
         </div>
 
     )

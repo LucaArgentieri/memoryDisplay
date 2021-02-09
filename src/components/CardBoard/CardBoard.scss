@@ -3,7 +3,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 80%;
+  height: 80vh;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 
   h3 {
     span {
@@ -22,7 +24,7 @@
   .cards_grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px;
+    gap: 20px;
   }
 
   .puff {
