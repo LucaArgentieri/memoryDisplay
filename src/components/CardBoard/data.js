@@ -14,7 +14,7 @@ const image = [
 
 ]
 
-const images = image.sort(() => 0.5 - Math.random())
+const images = image
 
 
 

@@ -1,52 +1,57 @@
-import React, { useEffect, useState } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import Cross from '../../assets/cross.svg'
-import { hoverC, removeHoverC, flipCards, animateCard } from '../../animations/animate'
+import gsap, { CSSPlugin } from "gsap"
+gsap.registerPlugin(CSSPlugin)
 
-export default function FrontCard({ image, flipCard, handleFlip }) {
+export default function FrontCard({ image, sameCheck, disabled, clicked }) {
 
-    const [win, setWin] = useState(false)
+    const card = useRef()
 
-    useEffect(() => {
-        animateCard()
+
+    const mouseHover = () => {
+        gsap.from([card.current], {
+            scale: 1,
+        })
+        gsap.to([card.current], {
+            scale: 1.1,
+        })
+    }
+
+    const mouseLeaveHover = () => {
+        gsap.to([card.current], {
+            scale: 1,
+            duration: 1
+        })
+    }
+
+
+
+
+    useLayoutEffect(() => {
+        mouseHover()
+        mouseLeaveHover()
     }, [])
 
+    return (
 
-    const flipped = document.querySelectorAll('.flipped')
-
-    useEffect(() => {
-        if (!flipped.length === 12) {
-            setWin(true)
-        }
-    }, [flipped])
-
-
-    if (win) {
-        return (
-            <h1>gg!</h1>
-        )
-    } else {
-        return (
-            <div
-                onMouseEnter={(e) => hoverC(e)}
-                onMouseLeave={(e) => removeHoverC(e)}
-                onClickCapture={(e) => flipCards(e)}
-                onClick={handleFlip}
-                className={`card ${flipCard ? 'flipped' : 'disabled'}`}>
-
-                <div className="inner">
-                    <div className="front">
-                        <img src={image} alt="name" />
-                    </div>
-
-                    <div className="back">
-                        <div>
-                            <img src={Cross} alt="" />
-                        </div>
-                    </div>
+        <div ref={card}
+            onMouseOver={mouseHover}
+            onMouseLeave={mouseLeaveHover}
+            onClick={sameCheck}
+            className={`card ${disabled ? '' : ''}`}>
+            <div onClick={clicked} className={`card-inner  ${clicked ? 'flip' : ''}`}>
+                <div className="card-back">
+                    <img src={image}
+                        alt="name" />
+                </div>
+                <div className="card-front">
+                    <img src={Cross} alt="" />
                 </div>
             </div>
-        )
-    }
+        </div>
+
+
+    )
 
 
 
