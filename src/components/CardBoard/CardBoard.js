@@ -23,7 +23,6 @@ export default function CardBoard() {
 
     // Logica Memory
     function sameCheck(e) {
-        console.log(e.target)
         let cards = flippedCards
         let sCards = sameCards
         cards.push(e.id)
@@ -37,13 +36,13 @@ export default function CardBoard() {
                 setCardStatus(true)
                 setSameCards(sCards)
 
-                //dai classe 
-                // falli sparire
 
 
             } else {
                 setFlippedCards([])
             }
+
+
         }
     }
 
@@ -54,14 +53,16 @@ export default function CardBoard() {
     //Style
     const clicked = (e) => {
         const element = e.target
-        console.log(element)
+
+
+        console.log(sameCards)
         gsap.to(e.target, {
-            duration: 1,
+            // duration: 1,
             rotateY: 180
         })
 
 
-        if (flippedCards.length <= 1) {
+        if (sameCards.length <= 2) {
             setTimeout(() => {
                 gsap.to(e.target, {
                     duration: 1,
@@ -191,7 +192,7 @@ export default function CardBoard() {
                                         key={index}
                                         image={img.img}
                                         clicked={(e) => clicked(e)}
-                                        sameCheck={(e) => sameCheck(e, img)}
+                                        sameCheck={() => sameCheck(img)}
                                         disabled={sameCards.includes(img.id)}
                                         cardStatus={cardStatus}
                                     />)
