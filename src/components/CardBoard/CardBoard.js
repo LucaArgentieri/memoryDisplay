@@ -14,6 +14,7 @@ export default function CardBoard() {
     const [flippedCards, setFlippedCards] = useState([])
     const [sameCards, setSameCards] = useState([])
     const [hide, setHide] = useState(true)
+    const [cardStatus, setCardStatus] = useState(false)
 
 
     useEffect(() => {
@@ -22,30 +23,28 @@ export default function CardBoard() {
 
     // Logica Memory
     function sameCheck(e) {
+        console.log(e.target)
         let cards = flippedCards
         let sCards = sameCards
         cards.push(e.id)
         setFlippedCards(cards)
+
         if (flippedCards.length === 2) {
 
             if (flippedCards[0] === flippedCards[1]) {
                 setFlippedCards([])
                 sCards.push(e.id)
+                setCardStatus(true)
                 setSameCards(sCards)
+
+                //dai classe 
+                // falli sparire
+
 
             } else {
                 setFlippedCards([])
             }
         }
-        console.log(sameCards)
-    }
-
-
-    // Timer che se sono diverse flippa
-    if (sameCards.length == 0) {
-        setTimeout(() => {
-            console.log('devono flippare')
-        }, 2000);
     }
 
 
@@ -54,12 +53,22 @@ export default function CardBoard() {
 
     //Style
     const clicked = (e) => {
-        // console.log(e.target.parentNode)
-        console.log(e.target)
+        const element = e.target
+        console.log(element)
         gsap.to(e.target, {
             duration: 1,
             rotateY: 180
         })
+
+
+        if (flippedCards.length <= 1) {
+            setTimeout(() => {
+                gsap.to(e.target, {
+                    duration: 1,
+                    rotateY: 0
+                })
+            }, 2000);
+        }
     }
 
 
@@ -157,7 +166,7 @@ export default function CardBoard() {
         setHide(false)
     }
     function refreshCards() {
-        // setCards(shuffle(images))
+        setCards(shuffle(images))
         clickedReset()
     }
 
@@ -177,15 +186,14 @@ export default function CardBoard() {
                     {
                         cards
                             .map((img, index) => {
-
-
                                 return (
                                     <FrontCard
                                         key={index}
                                         image={img.img}
                                         clicked={(e) => clicked(e)}
-                                        sameCheck={() => sameCheck(img)}
+                                        sameCheck={(e) => sameCheck(e, img)}
                                         disabled={sameCards.includes(img.id)}
+                                        cardStatus={cardStatus}
                                     />)
 
 
