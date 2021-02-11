@@ -29,5 +29,34 @@
 
   .puff {
     display: none;
+    pointer-events: none;
   }
+
+  .hide {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.winContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: 500px;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  span {
+    color: #0e00ff;
+    cursor: pointer;
+  }
+}
+
+.box {
+  width: 50px;
+  height: 50px;
+  // background-color: #0e00ff;
 }

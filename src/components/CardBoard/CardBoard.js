@@ -3,6 +3,7 @@ import './CardBoard.scss'
 import { images } from './data.js'
 import FrontCard from '../FrontCard/FrontCard'
 import { shuffle } from './shuffle'
+import WinComponent from '../WinComponent/WinComponent'
 import gsap from "gsap"
 
 
@@ -16,6 +17,7 @@ export default function CardBoard() {
     const [hide, setHide] = useState(true)
     const [idsList, setIdsList] = useState([])
     const [sameIds, setSameIds] = useState([])
+    const [savedElement, setSavedElement] = useState([])
 
 
     useEffect(() => {
@@ -47,62 +49,49 @@ export default function CardBoard() {
         }
     }
 
-
-
-
-
     //Style
     const clicked = (e, img) => {
         const element = e.target.parentNode
         const parentElement = e.target
-        const childElement0 = e.target.childNodes[0]
-        const childElement1 = e.target.childNodes[1]
-        console.log(childElement0, childElement1)
+        // const childElement0 = e.target.childNodes[0]
+        // const childElement1 = e.target.childNodes[1]
 
-        // console.log(element)
-        // console.log(img)
-        console.log(e)
+        savedElement.push(e.target)
+
+        if (savedElement.length >= 2) {
+            setSavedElement([])
+        }
+
 
         const imgId = img.id
 
         idsList.push(imgId)
-        console.log(idsList)
 
         gsap.to(parentElement, {
-            // duration: 1,
+            duration: 1,
             css: {
                 rotateY: 180,
-                className: "+=banana"
             }
-
         })
 
         if (idsList.length === 2) {
             if (idsList[0] === idsList[1]) {
 
                 sameIds.push(img.id)
-                gsap.to(childElement0, {
-                    // duration: 1,
+                gsap.to(savedElement, {
+                    duration: 0.5,
                     css: {
+                        className: "+=hide",
                         opacity: 0,
                         pointerEvents: "none"
                     }
                 })
-                gsap.to(childElement1, {
-                    // duration: 1,
+                gsap.to(element, {
                     css: {
-                        opacity: 0,
-                        pointerEvents: "none"
+                        pointerEvents: "none",
                     }
                 })
-                gsap.to(parentElement, {
-                    // duration: 1,
-                    css: {
-                        opacity: 0,
-                        pointerEvents: "none"
-                    }
-                })
-
+                console.log(element)
                 setIdsList([])
 
             } else {
@@ -116,7 +105,7 @@ export default function CardBoard() {
                             className: '+=card'
                         }
                     })
-                }, 2000);
+                }, 1000);
                 setIdsList([])
             }
 
@@ -126,7 +115,7 @@ export default function CardBoard() {
 
     }
 
-
+    // Stugger
     const cardsStugger = () => {
         resetAnimation()
 
@@ -142,6 +131,7 @@ export default function CardBoard() {
         });
     }
 
+    // Animazione Reset
     const resetAnimation = () => {
         gsap.from(".reset", {
             duration: 1.5,
@@ -151,7 +141,22 @@ export default function CardBoard() {
         });
     }
 
+    // Mischia carte + animazione
     const clickedReset = () => {
+        setFlippedCards([])
+        setSameCards([])
+        setIdsList([])
+        setSameIds([])
+        setSavedElement([])
+        gsap.to(".hide", {
+            // duration: 1,
+            css: {
+                className: "+=card-inner",
+                opacity: 1,
+                rotateY: 1,
+                pointerEvents: 'all'
+            }
+        })
         const tl = gsap.timeline()
         tl.to(".card", {
             duration: 1,
@@ -224,10 +229,10 @@ export default function CardBoard() {
     }
 
 
-    //Stato di vittoria
+    //Stato di vittoria 
     if (sameCards.length === 6) {
-        return <div>
-            <h1>Gg</h1>
+        return <div className="winContainer">
+            <WinComponent />
         </div>
 
         //Gioco
