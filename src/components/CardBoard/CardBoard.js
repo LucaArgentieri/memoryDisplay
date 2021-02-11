@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import './CardBoard.scss'
 import { images } from './data.js'
 import FrontCard from '../FrontCard/FrontCard'
@@ -14,7 +14,8 @@ export default function CardBoard() {
     const [flippedCards, setFlippedCards] = useState([])
     const [sameCards, setSameCards] = useState([])
     const [hide, setHide] = useState(true)
-    const [cardStatus, setCardStatus] = useState(false)
+    const [idsList, setIdsList] = useState([])
+    const [sameIds, setSameIds] = useState([])
 
 
     useEffect(() => {
@@ -33,7 +34,7 @@ export default function CardBoard() {
             if (flippedCards[0] === flippedCards[1]) {
                 setFlippedCards([])
                 sCards.push(e.id)
-                setCardStatus(true)
+                // setCardStatus(true)
                 setSameCards(sCards)
 
                 console.log(sameCards)
@@ -54,45 +55,74 @@ export default function CardBoard() {
     const clicked = (e, img) => {
         const element = e.target.parentNode
         const parentElement = e.target
-        console.log(element)
-        console.log(img)
+        const childElement0 = e.target.childNodes[0]
+        const childElement1 = e.target.childNodes[1]
+        console.log(childElement0, childElement1)
+
+        // console.log(element)
+        // console.log(img)
+        console.log(e)
+
+        const imgId = img.id
+
+        idsList.push(imgId)
+        console.log(idsList)
 
         gsap.to(parentElement, {
             // duration: 1,
             css: {
-                rotateY: 180
+                rotateY: 180,
+                className: "+=banana"
             }
 
         })
 
-        gsap.to(element, {
-            css: {
-                className: '+=disabled'
-            }
-        })
+        if (idsList.length === 2) {
+            if (idsList[0] === idsList[1]) {
 
-
-        if (flippedCards[0] !== flippedCards[1]) {
-            setTimeout(() => {
-                gsap.to(".card-inner", {
-                    duration: 1,
-                    rotateY: 0
-                })
-                gsap.to(element, {
+                sameIds.push(img.id)
+                gsap.to(childElement0, {
+                    // duration: 1,
                     css: {
-                        className: '+=card'
+                        opacity: 0,
+                        pointerEvents: "none"
                     }
                 })
-            }, 2000);
+                gsap.to(childElement1, {
+                    // duration: 1,
+                    css: {
+                        opacity: 0,
+                        pointerEvents: "none"
+                    }
+                })
+                gsap.to(parentElement, {
+                    // duration: 1,
+                    css: {
+                        opacity: 0,
+                        pointerEvents: "none"
+                    }
+                })
+
+                setIdsList([])
+
+            } else {
+                setTimeout(() => {
+                    gsap.to(".card-inner", {
+                        duration: 1,
+                        rotateY: 0,
+                    })
+                    gsap.to(element, {
+                        css: {
+                            className: '+=card'
+                        }
+                    })
+                }, 2000);
+                setIdsList([])
+            }
+
+
         }
 
-        //if(img.id)
-
-        gsap.to(element, {
-            css: {
-                className: '+=card'
-            }
-        })
 
     }
 
@@ -216,7 +246,6 @@ export default function CardBoard() {
                                         clicked={(e) => clicked(e, img)}
                                         sameCheck={() => sameCheck(img)}
                                         disabled={sameCards.includes(img.id)}
-                                        cardStatus={cardStatus}
                                     />)
 
 
