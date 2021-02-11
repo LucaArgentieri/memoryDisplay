@@ -36,7 +36,7 @@ export default function CardBoard() {
                 setCardStatus(true)
                 setSameCards(sCards)
 
-
+                console.log(sameCards)
 
             } else {
                 setFlippedCards([])
@@ -52,24 +52,46 @@ export default function CardBoard() {
 
     //Style
     const clicked = (e) => {
-        const element = e.target
+        const element = e.target.parentNode
+        const parentElement = e.target
+        console.log(element)
+        console.log(e)
 
-
-        console.log(sameCards)
-        gsap.to(e.target, {
+        gsap.to(parentElement, {
             // duration: 1,
-            rotateY: 180
+            css: {
+                rotateY: 180
+            }
+
+        })
+
+        gsap.to(element, {
+            css: {
+                className: '+=disabled'
+            }
         })
 
 
-        if (sameCards.length <= 2) {
+        if (flippedCards[0] !== flippedCards[1]) {
             setTimeout(() => {
-                gsap.to(e.target, {
+                gsap.to(".card-inner", {
                     duration: 1,
                     rotateY: 0
                 })
+                gsap.to(element, {
+                    css: {
+                        className: '+=card'
+                    }
+                })
             }, 2000);
         }
+
+        gsap.to(element, {
+            css: {
+                className: '+=card'
+            }
+        })
+
     }
 
 
@@ -79,10 +101,9 @@ export default function CardBoard() {
         gsap.from(".card", {
             duration: 1.5,
             scale: 1,
-            x: "110vh",
+            x: "150vh",
             ease: "power3.inOut",
             stagger: {
-                grid: [7, 15],
                 from: "right",
                 amount: 1
             }
@@ -103,10 +124,9 @@ export default function CardBoard() {
         tl.to(".card", {
             duration: 1,
             scale: 1,
-            x: "-110vw",
+            x: "-100vw",
             ease: "power3.inOut",
             stagger: {
-                grid: [7, 15],
                 from: "right",
                 amount: 1
             }

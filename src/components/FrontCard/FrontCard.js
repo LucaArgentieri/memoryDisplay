@@ -8,6 +8,7 @@ export default function FrontCard(props) {
     const card = useRef()
     const cardInner = useRef()
 
+
     const mouseHover = () => {
         gsap.from([card.current], {
             scale: 1,
@@ -37,7 +38,7 @@ export default function FrontCard(props) {
             onMouseLeave={mouseLeaveHover}
             onClick={props.sameCheck}
             onClickCapture={props.clicked}
-            className={`card ${props.clicked ? '' : ''}`}>
+            className={`card`}>
             <div ref={cardInner} className={`card-inner`}>
                 <div className={`card-back`}>
                     <img src={props.image}
