@@ -36,7 +36,6 @@ export default function CardBoard() {
             if (flippedCards[0] === flippedCards[1]) {
                 setFlippedCards([])
                 sCards.push(e.id)
-                // setCardStatus(true)
                 setSameCards(sCards)
 
                 console.log(sameCards)
@@ -71,6 +70,14 @@ export default function CardBoard() {
             duration: 1,
             css: {
                 rotateY: 180,
+                position: "absolute"
+            }
+        })
+
+        gsap.to(element, {
+            duration: 1,
+            css: {
+                pointerEvents: "none"
             }
         })
 
@@ -105,6 +112,13 @@ export default function CardBoard() {
                             className: '+=card'
                         }
                     })
+                    gsap.to(".card", {
+                        duration: 1,
+                        css: {
+                            pointerEvents: "unset"
+                        }
+                    })
+
                 }, 1000);
                 setIdsList([])
             }
@@ -257,6 +271,7 @@ export default function CardBoard() {
                             })
                     }
                 </div>
+
 
                 <h4 onClick={() => refreshCards()} className={`reset ${hide === true ? 'puff' : ''}`}>Reset</h4>
             </div>
