@@ -51,11 +51,11 @@ export default function CardBoard() {
 
 
     //Style
-    const clicked = (e) => {
+    const clicked = (e, img) => {
         const element = e.target.parentNode
         const parentElement = e.target
         console.log(element)
-        console.log(e)
+        console.log(img)
 
         gsap.to(parentElement, {
             // duration: 1,
@@ -85,6 +85,8 @@ export default function CardBoard() {
                 })
             }, 2000);
         }
+
+        //if(img.id)
 
         gsap.to(element, {
             css: {
@@ -211,7 +213,7 @@ export default function CardBoard() {
                                     <FrontCard
                                         key={index}
                                         image={img.img}
-                                        clicked={(e) => clicked(e)}
+                                        clicked={(e) => clicked(e, img)}
                                         sameCheck={() => sameCheck(img)}
                                         disabled={sameCards.includes(img.id)}
                                         cardStatus={cardStatus}
